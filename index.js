@@ -13,6 +13,24 @@ app.get('/', (requisicao, resposta) => {
     resposta.render('home')
 })
 
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000!")
+const conexao = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "igor",
+    databasa: "todoapp",
+    port: 3306
 })
+
+conexao.connect((erro) => {
+    if (erro) {
+        return console.log(erro)
+    }
+    console.log("Estou conectado ao Mysql.")
+
+    app.listen(3000, () => {
+        console.log("Servidor rodando na porta 3000!")
+    })
+
+})
+
+
