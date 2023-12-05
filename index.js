@@ -24,17 +24,36 @@ app.post('/criar', (requisicao, resposta) => {
         INSERT INTO tarefas(descricao, completa)
         VALUES ('${descricao}', '${completa}')
     `
+
     conexao.query(sql, (erro) => {
         if (erro) {
             return console.log(erro)
         }
-
+        
+        
         resposta.redirect('/')
+
     })
 
 })
 
 app.get('/', (requisicao, resposta) => {
+    const sql = 'SELECT * FROM tarefas'
+
+    conexao.query(sql, (erro, dados) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true
+            }
+        })
+
+    })
     resposta.render('home')
 })
 
