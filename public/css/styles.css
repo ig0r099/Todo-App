@@ -164,6 +164,7 @@ main {
 
     font-size: 0.875rem;
 }
+
 .botoes .active {
     color: var(--info-button-active);
 }
